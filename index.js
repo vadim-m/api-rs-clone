@@ -13,6 +13,17 @@ app.post("/", (req, res) => {
   return res.status(200).json("Сервер запущен!");
 });
 
-app.listen(PORT, () => {
-  console.log("server started");
-});
+async function startApp() {
+  try {
+    mongoose.set("strictQuery", false);
+    await mongoose.connect(DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    app.listen(PORT, () => console.log("server started"));
+  } catch (e) {
+    console.warn(e.message);
+  }
+}
+
+startApp();
