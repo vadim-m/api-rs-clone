@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import router from "./router.js";
 
 const PORT = 3000;
 const DB_USER = "rs-client";
@@ -8,10 +9,7 @@ const DB_URL = `mongodb+srv://${DB_USER}:${DB_PASS}@rs-cluster.zay4fzg.mongodb.n
 
 const app = express();
 app.use(express.json());
-
-app.post("/", (req, res) => {
-  return res.status(200).json("Сервер запущен!");
-});
+app.use("/api", router);
 
 async function startApp() {
   try {
