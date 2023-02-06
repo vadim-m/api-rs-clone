@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import router from "./router.js";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const DB_USER = "rs-client";
 const DB_PASS = "ohPiDM9NUxzSxawj";
 const DB_URL = `mongodb+srv://${DB_USER}:${DB_PASS}@rs-cluster.zay4fzg.mongodb.net/?retryWrites=true&w=majority`;
