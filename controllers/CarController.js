@@ -1,4 +1,4 @@
-import Car from "./models/Car.js";
+import Car from "../models/Car.js";
 
 class CarController {
   async createCar(req, res) {
