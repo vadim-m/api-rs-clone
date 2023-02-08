@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import router from "./routes/router.js";
+import router from "./routes/cars-router.js";
 
 const PORT = process.env.PORT || 3000;
 const DB_USER = "rs-client";
