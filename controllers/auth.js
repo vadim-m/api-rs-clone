@@ -1,5 +1,8 @@
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 import User from "../models/User.js";
+dotenv.config();
 
 class AuthController {
   async login(req, res) {
@@ -11,7 +14,15 @@ class AuthController {
         const isValidPass = bcryptjs.compareSync(password, candidate.password);
 
         if (isValidPass) {
-          res.status(200).json({ message: "Parols equals!" });
+          const token = jwt.sign(
+            {
+              id: candidate._id,
+              email: candidate.email,
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "24h" }
+          );
+          res.status(200).json({ token: `Bearer ${token}` });
         } else {
           res.status(401).json({ message: "Invalid password!" });
         }
