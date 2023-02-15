@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import carsRouter from "./routes/cars.js";
+import authRouter from "./routes/auth.js";
 dotenv.config();
 
 // App
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api", carsRouter);
+app.use("/api/auth", authRouter);
 
 async function startApp() {
   try {
