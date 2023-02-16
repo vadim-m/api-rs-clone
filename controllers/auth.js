@@ -22,7 +22,7 @@ class AuthController {
             process.env.JWT_SECRET,
             { expiresIn: "24h" }
           );
-          res.status(200).json({ token: `Bearer ${token}` });
+          res.status(200).json({ token: `Bearer ${token}`, candidate });
         } else {
           res.status(401).json({ message: "Invalid password!" });
         }
@@ -36,7 +36,7 @@ class AuthController {
 
   async register(req, res) {
     try {
-      const { email, password } = req.body;
+      const { email, password, fullName } = req.body;
       const candidate = await User.findOne({ email });
 
       if (candidate) {
@@ -45,6 +45,7 @@ class AuthController {
         const newUser = new User({
           email,
           password: bcryptjs.hashSync(password, 8),
+          fullName,
         });
 
         await newUser.save();
