@@ -22,7 +22,7 @@ class AuthController {
             process.env.JWT_SECRET,
             { expiresIn: "24h" }
           );
-          res.status(200).json({ token: `Bearer ${token}`, candidate });
+          res.status(200).json({ token: `Bearer ${token}`, id: candidate._id });
         } else {
           res.status(401).json({ message: "Invalid password!" });
         }
