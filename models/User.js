@@ -6,7 +6,7 @@ const User = Schema(
     password: { type: String, required: true },
     fullName: { type: String, required: true },
     hasCar: { type: Boolean, default: false },
-    carId: { type: String },
+    carId: { type: Schema.Types.ObjectId, ref: "Car" },
     language: { type: String, default: "RU" },
     currency: { type: String, default: "₽" },
     units: { type: String, default: "Europe" },

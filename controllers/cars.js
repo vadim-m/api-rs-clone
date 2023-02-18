@@ -1,24 +1,19 @@
 import Car from "../models/Car.js";
+import User from "../models/User.js";
 
 class CarController {
   async createCar(req, res) {
     try {
-      const { car, event, driver } = req.body;
-      const carObj = await Car.create({ car, event, driver });
-
-      return res.status(200).json(carObj);
+      const userID = req.headers["user-id"];
+      const user = await User.findById(userID);
+      const newCar = new Car(req.body);
+      user.carId = newCar;
+      user.hasCar = true;
+      await newCar.save();
+      await user.save();
+      res.status(201).json(user.carId);
     } catch (error) {
-      res.status(500).json(error.message);
-    }
-  }
-
-  async getAllCars(req, res) {
-    try {
-      const cars = await Car.find();
-
-      return res.status(200).json(cars);
-    } catch (error) {
-      res.status(500).json(error.message);
+      res.status(500).json({ message: "Creating error" });
     }
   }
 
