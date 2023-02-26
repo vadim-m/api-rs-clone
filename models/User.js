@@ -9,7 +9,9 @@ const User = Schema(
     carId: { type: Schema.Types.ObjectId, ref: "Car" },
     language: { type: String, default: "RU" },
     currency: { type: String, default: "₽" },
-    units: { type: String, default: "Europe" },
+    darkTheme: { type: Boolean, default: false },
+    predictMileage: { type: Boolean, default: false },
+    rememberPriceFuel: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

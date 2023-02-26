@@ -8,9 +8,11 @@ const Car = new mongoose.Schema(
     fuel: { type: String, required: true },
     mileage: { type: String, required: true },
     sizeTank: { type: String, required: true },
-    engineType: { type: String, default: "-" },
-    engineDisplacement: { type: String, default: "-" },
-    enginePower: { type: String, default: "-" },
+    cost: { type: String },
+    startFuel: { type: String, default: "0" },
+    engineType: { type: String },
+    engineDisplacement: { type: String },
+    enginePower: { type: String },
   },
   { timestamps: true }
 );

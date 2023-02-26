@@ -22,7 +22,22 @@ class AuthController {
             process.env.JWT_SECRET,
             { expiresIn: "24h" }
           );
-          res.status(200).json({ token: `Bearer ${token}`, id: candidate._id });
+
+          const userSettings = {
+            fullName: candidate.fullName,
+            hasCar: candidate.hasCar,
+            language: candidate.language,
+            currency: candidate.currency,
+            darkTheme: candidate.darkTheme,
+            predictMileage: candidate.predictMileage,
+            rememberPriceFuel: candidate.rememberPriceFuel,
+          };
+          // ! потом убрать id, так как он будет в passport
+          res.status(200).json({
+            token: `Bearer ${token}`,
+            id: candidate._id,
+            userSettings,
+          });
         } else {
           res.status(401).json({ message: "Invalid password!" });
         }
