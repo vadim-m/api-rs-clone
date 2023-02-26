@@ -5,6 +5,7 @@ import morgan from "morgan";
 import * as dotenv from "dotenv";
 import carsRouter from "./routes/cars.js";
 import authRouter from "./routes/auth.js";
+import settingsRouter from "./routes/settings.js";
 dotenv.config();
 
 // App
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 // Routes
 app.use("/api", carsRouter);
 app.use("/api/auth", authRouter);
+app.use("/api", settingsRouter);
 
 async function startApp() {
   try {
