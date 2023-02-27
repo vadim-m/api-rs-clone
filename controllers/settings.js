@@ -1,5 +1,4 @@
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import User from "../models/User.js";
 dotenv.config();
@@ -30,27 +29,30 @@ class SettingsController {
     }
   }
 
-  // async updateSettings(req, res) {
-  //   try {
-  //     const { email, password, fullName } = req.body;
-  //     const candidate = await User.findOne({ email });
+  async updateSettings(req, res) {
+    try {
+      const userID = req.headers["user-id"];
+      const settingsObj = req.body;
+      const user = await User.findByIdAndUpdate(userID, settingsObj, {
+        new: true,
+      });
 
-  //     if (candidate) {
-  //       res.status(409).json({ message: "The email already registered!" });
-  //     } else {
-  //       const newUser = new User({
-  //         email,
-  //         password: bcryptjs.hashSync(password, 8),
-  //         fullName,
-  //       });
+      const updatedSettings = {
+        fullName: user.fullName,
+        hasCar: user.hasCar,
+        language: user.language,
+        currency: user.currency,
+        rememberPriceFuel: user.rememberPriceFuel,
+        predictMileage: user.predictMileage,
+        darkTheme: user.darkTheme,
+        orientation: user.orientation,
+      };
 
-  //       await newUser.save();
-  //       res.status(201).json(newUser);
-  //     }
-  //   } catch (error) {
-  //     res.status(400).json({ message: "Registration error" });
-  //   }
-  // }
+      res.status(200).json(updatedSettings);
+    } catch (error) {
+      res.status(400).json({ message: "Registration error" });
+    }
+  }
 }
 
 export default new SettingsController();

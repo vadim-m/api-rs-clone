@@ -10,8 +10,10 @@ const User = Schema(
     language: { type: String, default: "RU" },
     currency: { type: String, default: "₽" },
     darkTheme: { type: Boolean, default: false },
+    orientation: { type: Boolean, default: false },
     predictMileage: { type: Boolean, default: false },
     rememberPriceFuel: { type: Boolean, default: false },
+    todos: [{ type: Schema.Types.ObjectId, ref: "Todo" }],
   },
   { timestamps: true }
 );
