@@ -1,18 +1,18 @@
 import User from "../models/User.js";
-import Others from "../models/Others.js";
+import Other from "../models/Other.js";
 
 class OthersController {
   async createOthers(req, res) {
     try {
       const userID = req.headers["user-id"];
       const user = await User.findById(userID);
-      const newTodo = new Others(req.body);
+      const newOther = new Other(req.body);
 
-      user.todos.push(newTodo);
+      user.others.push(newOther);
 
-      await newTodo.save();
+      await newOther.save();
       await user.save();
-      res.status(201).json(newTodo);
+      res.status(201).json(newOther);
     } catch (error) {
       res.status(500).json({ message: "Creating error" });
     }
@@ -27,8 +27,8 @@ class OthersController {
         return res.status(400).json({ message: "UserID is required!" });
       }
 
-      const todos = user.todos;
-      return res.status(200).json(todos);
+      const others = user.others;
+      return res.status(200).json(others);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -36,18 +36,18 @@ class OthersController {
 
   async updateOthers(req, res) {
     try {
-      const todoObj = req.body;
+      const otherObj = req.body;
       const { id } = req.params;
 
       if (!id) {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const updatedTodo = await Others.findByIdAndUpdate(id, todoObj, {
+      const updatedOther = await Other.findByIdAndUpdate(id, otherObj, {
         new: true,
       });
 
-      return res.status(200).json(updatedTodo);
+      return res.status(200).json(updatedOther);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -61,9 +61,9 @@ class OthersController {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const deletedTodo = await Others.findByIdAndDelete(id);
+      const deletedOther = await Other.findByIdAndDelete(id);
 
-      return res.status(200).json(deletedTodo);
+      return res.status(200).json(deletedOther);
     } catch (error) {
       res.status(500).json(error.message);
     }

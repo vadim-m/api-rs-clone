@@ -6,13 +6,13 @@ class RemindersController {
     try {
       const userID = req.headers["user-id"];
       const user = await User.findById(userID);
-      const newTodo = new Reminder(req.body);
+      const newReminder = new Reminder(req.body);
 
-      user.todos.push(newTodo);
+      user.reminders.push(newReminder);
 
-      await newTodo.save();
+      await newReminder.save();
       await user.save();
-      res.status(201).json(newTodo);
+      res.status(201).json(newReminder);
     } catch (error) {
       res.status(500).json({ message: "Creating error" });
     }
@@ -27,8 +27,8 @@ class RemindersController {
         return res.status(400).json({ message: "UserID is required!" });
       }
 
-      const todos = user.todos;
-      return res.status(200).json(todos);
+      const reminders = user.reminders;
+      return res.status(200).json(reminders);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -36,18 +36,22 @@ class RemindersController {
 
   async updateReminders(req, res) {
     try {
-      const todoObj = req.body;
+      const reminderObj = req.body;
       const { id } = req.params;
 
       if (!id) {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const updatedTodo = await Reminder.findByIdAndUpdate(id, todoObj, {
-        new: true,
-      });
+      const updatedReminder = await Reminder.findByIdAndUpdate(
+        id,
+        reminderObj,
+        {
+          new: true,
+        }
+      );
 
-      return res.status(200).json(updatedTodo);
+      return res.status(200).json(updatedReminder);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -61,9 +65,9 @@ class RemindersController {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const deletedTodo = await Reminder.findByIdAndDelete(id);
+      const deletedReminder = await Reminder.findByIdAndDelete(id);
 
-      return res.status(200).json(deletedTodo);
+      return res.status(200).json(deletedReminder);
     } catch (error) {
       res.status(500).json(error.message);
     }

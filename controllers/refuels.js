@@ -6,13 +6,13 @@ class RefuelsController {
     try {
       const userID = req.headers["user-id"];
       const user = await User.findById(userID);
-      const newTodo = new Refuel(req.body);
+      const newRefuel = new Refuel(req.body);
 
-      user.todos.push(newTodo);
+      user.refuels.push(newRefuel);
 
-      await newTodo.save();
+      await newRefuel.save();
       await user.save();
-      res.status(201).json(newTodo);
+      res.status(201).json(newRefuel);
     } catch (error) {
       res.status(500).json({ message: "Creating error" });
     }
@@ -27,8 +27,8 @@ class RefuelsController {
         return res.status(400).json({ message: "UserID is required!" });
       }
 
-      const todos = user.todos;
-      return res.status(200).json(todos);
+      const refuels = user.refuels;
+      return res.status(200).json(refuels);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -36,18 +36,18 @@ class RefuelsController {
 
   async updateRefuels(req, res) {
     try {
-      const todoObj = req.body;
+      const refuelObj = req.body;
       const { id } = req.params;
 
       if (!id) {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const updatedTodo = await Refuel.findByIdAndUpdate(id, todoObj, {
+      const updatedRefuel = await Refuel.findByIdAndUpdate(id, refuelObj, {
         new: true,
       });
 
-      return res.status(200).json(updatedTodo);
+      return res.status(200).json(updatedRefuel);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -61,9 +61,9 @@ class RefuelsController {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const deletedTodo = await Refuel.findByIdAndDelete(id);
+      const deletedRefuel = await Refuel.findByIdAndDelete(id);
 
-      return res.status(200).json(deletedTodo);
+      return res.status(200).json(deletedRefuel);
     } catch (error) {
       res.status(500).json(error.message);
     }

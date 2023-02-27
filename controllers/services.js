@@ -6,13 +6,13 @@ class ServicesController {
     try {
       const userID = req.headers["user-id"];
       const user = await User.findById(userID);
-      const newTodo = new Service(req.body);
+      const newService = new Service(req.body);
 
-      user.todos.push(newTodo);
+      user.services.push(newService);
 
-      await newTodo.save();
+      await newService.save();
       await user.save();
-      res.status(201).json(newTodo);
+      res.status(201).json(newService);
     } catch (error) {
       res.status(500).json({ message: "Creating error" });
     }
@@ -27,8 +27,8 @@ class ServicesController {
         return res.status(400).json({ message: "UserID is required!" });
       }
 
-      const todos = user.todos;
-      return res.status(200).json(todos);
+      const services = user.services;
+      return res.status(200).json(services);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -36,18 +36,18 @@ class ServicesController {
 
   async updateServices(req, res) {
     try {
-      const todoObj = req.body;
+      const serviceObj = req.body;
       const { id } = req.params;
 
       if (!id) {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const updatedTodo = await Service.findByIdAndUpdate(id, todoObj, {
+      const updatedService = await Service.findByIdAndUpdate(id, serviceObj, {
         new: true,
       });
 
-      return res.status(200).json(updatedTodo);
+      return res.status(200).json(updatedService);
     } catch (error) {
       res.status(500).json(error.message);
     }
@@ -61,9 +61,9 @@ class ServicesController {
         res.status(400).json({ message: "ID is required!" });
       }
 
-      const deletedTodo = await Service.findByIdAndDelete(id);
+      const deletedService = await Service.findByIdAndDelete(id);
 
-      return res.status(200).json(deletedTodo);
+      return res.status(200).json(deletedService);
     } catch (error) {
       res.status(500).json(error.message);
     }

@@ -14,6 +14,10 @@ const User = Schema(
     predictMileage: { type: Boolean, default: false },
     rememberPriceFuel: { type: Boolean, default: false },
     todos: [{ type: Schema.Types.ObjectId, ref: "Todo" }],
+    others: [{ type: Schema.Types.ObjectId, ref: "Other" }],
+    refuels: [{ type: Schema.Types.ObjectId, ref: "Refuel" }],
+    reminders: [{ type: Schema.Types.ObjectId, ref: "Reminder" }],
+    services: [{ type: Schema.Types.ObjectId, ref: "Service" }],
   },
   { timestamps: true }
 );
