@@ -7,6 +7,11 @@ import carsRouter from "./routes/cars.js";
 import authRouter from "./routes/auth.js";
 import settingsRouter from "./routes/settings.js";
 import todoRouter from "./routes/todo.js";
+// to do
+import refuelsRouter from "./routes/refuels.js";
+import servicesRouter from "./routes/services.js";
+import othersRouter from "./routes/others.js";
+import remindersRouter from "./routes/reminders.js";
 dotenv.config();
 
 // App
@@ -22,6 +27,11 @@ app.use("/api", carsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api", settingsRouter);
 app.use("/api", todoRouter);
+// to do
+app.use("/api", refuelsRouter);
+app.use("/api", servicesRouter);
+app.use("/api", othersRouter);
+app.use("/api", remindersRouter);
 
 async function startApp() {
   try {
