@@ -69,9 +69,16 @@ class CarController {
       const deletedCar = await Car.findByIdAndDelete(id);
 
       const userID = req.headers["user-id"];
-      const updatedCar = await User.findByIdAndUpdate(
+      const user = await User.findByIdAndUpdate(
         userID,
-        { hasCar: false, carId: null },
+        {
+          hasCar: false,
+          carId: null,
+          others: [],
+          refuels: [],
+          reminders: [],
+          services: [],
+        },
         { new: true }
       );
 
